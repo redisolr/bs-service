@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtxln.goods.mapper.GoodsMapper">
+  <resultMap id="BaseResultMap" type="com.qtxln.model.goods.Goods">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="goods_price" jdbcType="DECIMAL" property="goodsPrice" />
+    <result column="goods_num" jdbcType="INTEGER" property="goodsNum" />
+    <result column="goods_barcode" jdbcType="VARCHAR" property="goodsBarcode" />
+    <result column="goods_image" jdbcType="VARCHAR" property="goodsImage" />
+    <result column="goods_cid" jdbcType="BIGINT" property="goodsCid" />
+    <result column="goods_status" jdbcType="TINYINT" property="goodsStatus" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_update" jdbcType="TIMESTAMP" property="gmtUpdate" />
+  </resultMap>
+  <insert id="insert" parameterType="com.qtxln.model.goods.Goods">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into g_goods (goods_name, goods_price, goods_num, 
+      goods_barcode, goods_image, goods_cid, 
+      goods_status, gmt_create, gmt_update
+      )
+    values (#{goodsName,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=DECIMAL}, #{goodsNum,jdbcType=INTEGER}, 
+      #{goodsBarcode,jdbcType=VARCHAR}, #{goodsImage,jdbcType=VARCHAR}, #{goodsCid,jdbcType=BIGINT}, 
+      #{goodsStatus,jdbcType=TINYINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtUpdate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qtxln.model.goods.Goods">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into g_goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="goodsName != null">
+        goods_name,
+      </if>
+      <if test="goodsPrice != null">
+        goods_price,
+      </if>
+      <if test="goodsNum != null">
+        goods_num,
+      </if>
+      <if test="goodsBarcode != null">
+        goods_barcode,
+      </if>
+      <if test="goodsImage != null">
+        goods_image,
+      </if>
+      <if test="goodsCid != null">
+        goods_cid,
+      </if>
+      <if test="goodsStatus != null">
+        goods_status,
+      </if>
+        gmt_create,
+      <if test="gmtUpdate != null">
+        gmt_update,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="goodsName != null">
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null">
+        #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsNum != null">
+        #{goodsNum,jdbcType=INTEGER},
+      </if>
+      <if test="goodsBarcode != null">
+        #{goodsBarcode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsImage != null">
+        #{goodsImage,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCid != null">
+        #{goodsCid,jdbcType=BIGINT},
+      </if>
+      <if test="goodsStatus != null">
+        #{goodsStatus,jdbcType=TINYINT},
+      </if>
+        now(),
+      <if test="gmtUpdate != null">
+        #{gmtUpdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="deleteByIds" parameterType="java.util.List">
+    UPDATE g_goods SET goods_status = 2 WHERE id IN
+    <foreach item="idItem" collection="list" open="(" separator="," close=")">
+       #{idItem}
+    </foreach>
+  </update>
+</mapper>

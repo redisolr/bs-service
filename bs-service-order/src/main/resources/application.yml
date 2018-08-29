@@ -1,0 +1,23 @@
+server:
+  port: 6005
+  servlet:
+    context-path: /order
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.qtxln.order.mapper
+  configuration:
+    map-underscore-to-camel-case: true
+spring:
+  application:
+    name: bs-service-order
+  cloud:
+    config:
+      name: ${spring.application.name}, common
+      uri: http://localhost:8888
+logging:
+  level:
+   com:
+    qtxln:
+     order:
+      mapper: debug
+

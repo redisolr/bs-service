@@ -1,0 +1,28 @@
+server:
+  port: 6001
+  servlet:
+    context-path: /goods
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.qtxln.goods.mapper
+  configuration:
+    map-underscore-to-camel-case: true
+management:
+  health:  
+    mail:
+      enabled: false
+
+
+spring:
+  application:
+    name: bs-service-goods
+  cloud:
+    config:
+      name: ${spring.application.name}, common
+      uri: http://localhost:8888
+logging:
+  level:
+   com:
+    qtxln:
+     goods:
+      mapper: debug

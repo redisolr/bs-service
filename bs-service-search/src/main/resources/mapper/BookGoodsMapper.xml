@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtxln.search.mapper.BookGoodsMapper">
+	<select id="selectAll" resultType="com.qtxln.search.model.BookGoods">
+		SELECT
+			g.id,
+			g.goods_name,
+			g.goods_price,
+			g.goods_num,
+			g.goods_image,
+			g.goods_barcode,
+			CONCAT( gcp.class_name, '>', gc.class_name ) class_name,
+			g.gmt_create
+		FROM
+			g_goods g
+			LEFT JOIN g_goods_class gc ON g.goods_cid = gc.id
+			LEFT JOIN g_goods_class gcp ON gc.parent_id = gcp.id
+		WHERE
+			g.goods_status = 1
+	</select>
+	<select id="selectById" resultType="com.qtxln.search.model.BookGoods" parameterType="java.lang.Long">
+		SELECT
+			g.id,
+			g.goods_name,
+			g.goods_price,
+			g.goods_num,
+			g.goods_image,
+			g.goods_barcode,
+			CONCAT( gcp.class_name, '>', gc.class_name ) class_name,
+			g.gmt_create
+		FROM
+			g_goods g
+			LEFT JOIN g_goods_class gc ON g.goods_cid = gc.id
+			LEFT JOIN g_goods_class gcp ON gc.parent_id = gcp.id
+		WHERE
+			g.goods_status = 1 AND g.id = #{id}
+	</select>
+</mapper>

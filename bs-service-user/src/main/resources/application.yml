@@ -1,0 +1,23 @@
+server:
+  port: 6004
+  servlet:
+    context-path: /user
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.qtxln.user.mapper
+  configuration:
+    map-underscore-to-camel-case: true
+spring:
+  application:
+    name: bs-service-user
+  cloud:
+    config:
+      name: ${spring.application.name}, common
+      uri: http://localhost:8888
+logging:
+  level:
+   com:
+    qtxln:
+     user:
+      mapper: debug
+

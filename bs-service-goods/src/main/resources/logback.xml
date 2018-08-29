@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+	<property name="LOG_PATH" value="/bs-log" />
+	
+    <!-- <include resource="org/springframework/boot/logging/logback/base.xml"/>
+     -->
+     <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{30}[%file:%line] - %msg%n
+			</Pattern>
+		</layout>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>TRACE</level>
+		</filter>
+	</appender>
+    <appender name="LOG-FILE"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_PATH}/bs-goods-file.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${LOG_PATH}/history/%d{yyyy-MM,aux}/%d{yyyy-MM-dd}.bs-goods-file.log
+            </fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{30}[%file:%line] - %msg%n</pattern>
+        </encoder>
+    </appender>
+     <appender name="LOG-WARN"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_PATH}/bs-goods-warn.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${LOG_PATH}/history/%d{yyyy-MM,aux}/%d{yyyy-MM-dd}.bs-goods-warn.log
+            </fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{30}[%file:%line] - %msg%n</pattern>
+        </encoder>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>WARN</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+    </appender>
+    <appender name="LOG-ERROR"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_PATH}/bs-goods-error.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${LOG_PATH}/history/%d{yyyy-MM,aux}/%d{yyyy-MM-dd}.bs-goods-error.log
+            </fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{30}[%file:%line] - %msg%n</pattern>
+        </encoder>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+    </appender>
+
+<!--     <springProfile name="default">
+        <logger name="com.w2cx" level="DEBUG"/>
+    </springProfile>
+    <springProfile name="dev">
+        <logger name="com.w2cx" level="DEBUG"/>
+    </springProfile>
+    <springProfile name="test">
+        <logger name="com.w2cx" level="DEBUG"/>
+    </springProfile>
+    <springProfile name="stag">
+        <logger name="com.w2cx" level="WARN"/>
+    </springProfile>
+    <springProfile name="prod">
+		<logger name="com.w2cx" level="WARN" />
+    </springProfile> -->
+
+	<logger level="DEBUG" name="java.sql.Connection" additivity="false">
+		<appender-ref ref="LOG-FILE" />
+	</logger>
+	<logger level="DEBUG" name="java.sql.Statement" additivity="false">
+		<appender-ref ref="LOG-FILE" />
+	</logger>
+	<logger level="DEBUG" name="java.sql.PreparedStatement"
+		additivity="false">
+		<appender-ref ref="LOG-FILE" />
+	</logger>
+	<logger level="DEBUG" name="org.apache.ibatis.logging.jdbc.BaseJdbcLogger"
+		additivity="false">
+		<appender-ref ref="LOG-FILE" />
+	</logger>
+<!-- SQL执行返回结查，上线时请释掉，不要SQL输出返回 -->
+    <logger level="DEBUG" name="java.sql.ResultSet" additivity="false">
+        <appender-ref ref="LOG-FILE" />
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="consoleAppender"/>
+        <appender-ref ref="LOG-FILE"/>
+        <appender-ref ref="LOG-WARN"/>
+        <appender-ref ref="LOG-ERROR"/>
+    </root>
+</configuration>

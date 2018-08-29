@@ -1,0 +1,14 @@
+server:
+  port: 8888
+# 本地配置          
+spring:
+  application:
+    name: cx-configurer
+    
+  profiles:
+    active: native
+  cloud:
+    config:
+      server: 
+        native: 
+          searchLocations: classpath:/bs-config

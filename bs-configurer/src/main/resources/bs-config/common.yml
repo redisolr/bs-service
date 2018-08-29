@@ -1,0 +1,26 @@
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_null
+  rabbitmq:
+    host: 47.104.176.62
+    port: 5672
+    username: root
+    password: nana916417
+    virtual-host: /
+  redis:
+    host: 47.104.176.62
+    port: 6379
+eureka:
+  instance:
+    preferIpAddress: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 10
+  client:
+    healthcheck:
+      enabled: true
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/

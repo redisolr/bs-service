@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtxln.manager.mapper.PanelContentMapper">
+  <resultMap id="BaseResultMap" type="com.qtxln.manager.entity.PanelContent">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="panel_id" jdbcType="BIGINT" property="panelId" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="picture_url" jdbcType="VARCHAR" property="pictureUrl" />
+    <result column="jump_url" jdbcType="VARCHAR" property="jumpUrl" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_update" jdbcType="TIMESTAMP" property="gmtUpdate" />
+  </resultMap>
+  <insert id="insert" parameterType="com.qtxln.manager.entity.PanelContent">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into m_panel_content (panel_id, sort, picture_url, 
+      jump_url, gmt_create, gmt_update
+      )
+    values (#{panelId,jdbcType=BIGINT}, #{sort,jdbcType=INTEGER}, #{pictureUrl,jdbcType=VARCHAR}, 
+      #{jumpUrl,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtUpdate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qtxln.manager.entity.PanelContent">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into m_panel_content
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="panelId != null">
+        panel_id,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="pictureUrl != null">
+        picture_url,
+      </if>
+      <if test="jumpUrl != null">
+        jump_url,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtUpdate != null">
+        gmt_update,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="panelId != null">
+        #{panelId,jdbcType=BIGINT},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="pictureUrl != null">
+        #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="jumpUrl != null">
+        #{jumpUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtUpdate != null">
+        #{gmtUpdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="com.qtxln.manager.entity.PanelContent">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="panel_id" jdbcType="BIGINT" property="panelId" />
+    <result column="store" jdbcType="INTEGER" property="store" />
+    <result column="picture_url" jdbcType="VARCHAR" property="pictureUrl" />
+    <result column="jump_url" jdbcType="VARCHAR" property="jumpUrl" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_update" jdbcType="TIMESTAMP" property="gmtUpdate" />
+  </resultMap>
+  <insert id="insert" parameterType="com.qtxln.manager.entity.PanelContent">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into m_panel_content (panel_id, store, picture_url, 
+      jump_url, gmt_create, gmt_update
+      )
+    values (#{panelId,jdbcType=BIGINT}, #{store,jdbcType=INTEGER}, #{pictureUrl,jdbcType=VARCHAR}, 
+      #{jumpUrl,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtUpdate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qtxln.manager.entity.PanelContent">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into m_panel_content
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="panelId != null">
+        panel_id,
+      </if>
+      <if test="store != null">
+        store,
+      </if>
+      <if test="pictureUrl != null">
+        picture_url,
+      </if>
+      <if test="jumpUrl != null">
+        jump_url,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtUpdate != null">
+        gmt_update,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="panelId != null">
+        #{panelId,jdbcType=BIGINT},
+      </if>
+      <if test="store != null">
+        #{store,jdbcType=INTEGER},
+      </if>
+      <if test="pictureUrl != null">
+        #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="jumpUrl != null">
+        #{jumpUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtUpdate != null">
+        #{gmtUpdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

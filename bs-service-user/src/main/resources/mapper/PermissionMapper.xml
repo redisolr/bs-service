@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtxln.user.mapper.PermissionMapper">
+    <resultMap id="BaseResultMap" type="com.qtxln.model.user.Permission">
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="parent_id" jdbcType="BIGINT" property="parentId"/>
+        <result column="path" jdbcType="VARCHAR" property="path"/>
+    </resultMap>
+    <select id="findPathByIds" parameterType="java.util.List" resultType="java.lang.String">
+        SELECT path FROM u_permission WHERE id IN
+        <foreach item="item" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+</mapper>

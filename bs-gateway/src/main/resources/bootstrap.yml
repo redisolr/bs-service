@@ -1,0 +1,15 @@
+server:
+  port: 5555
+spring:
+  application:
+    name: bs-gateway
+  cloud:
+    config:
+      name: ${spring.application.name}, common
+      uri: http://localhost:8888
+logging:
+  level:
+    org.springframework.cloud.gateway: info
+    org.springframework.http.server.reactive: info
+    org.springframework.web.reactive: info
+    reactor.ipc.netty: info

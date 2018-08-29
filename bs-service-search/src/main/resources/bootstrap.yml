@@ -1,0 +1,22 @@
+server:
+  port: 6002
+  servlet:
+    context-path: /search
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.qtxln.search.mapper
+  configuration:
+    map-underscore-to-camel-case: true
+management:
+  health:
+    mail:
+      enabled: false
+
+spring:
+  application:
+    name: bs-service-search
+  cloud:
+    config:
+      name: ${spring.application.name}, common
+      uri: http://localhost:8888
+

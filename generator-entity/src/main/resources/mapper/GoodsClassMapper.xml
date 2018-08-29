@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtxln.goods.mapper.GoodsClassMapper">
+  <resultMap id="BaseResultMap" type="com.qtxln.goods.entity.GoodsClass">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="class_name" jdbcType="VARCHAR" property="className" />
+    <result column="class_status" jdbcType="INTEGER" property="classStatus" />
+    <result column="class_sort" jdbcType="INTEGER" property="classSort" />
+    <result column="is_parent" jdbcType="BIT" property="isParent" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_update" jdbcType="TIMESTAMP" property="gmtUpdate" />
+  </resultMap>
+  <insert id="insert" parameterType="com.qtxln.goods.entity.GoodsClass">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into g_goods_class (parent_id, class_name, class_status, 
+      class_sort, is_parent, gmt_create, 
+      gmt_update)
+    values (#{parentId,jdbcType=BIGINT}, #{className,jdbcType=VARCHAR}, #{classStatus,jdbcType=INTEGER}, 
+      #{classSort,jdbcType=INTEGER}, #{isParent,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtUpdate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qtxln.goods.entity.GoodsClass">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into g_goods_class
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="className != null">
+        class_name,
+      </if>
+      <if test="classStatus != null">
+        class_status,
+      </if>
+      <if test="classSort != null">
+        class_sort,
+      </if>
+      <if test="isParent != null">
+        is_parent,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtUpdate != null">
+        gmt_update,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="parentId != null">
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="className != null">
+        #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="classStatus != null">
+        #{classStatus,jdbcType=INTEGER},
+      </if>
+      <if test="classSort != null">
+        #{classSort,jdbcType=INTEGER},
+      </if>
+      <if test="isParent != null">
+        #{isParent,jdbcType=BIT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtUpdate != null">
+        #{gmtUpdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,30 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: bs-service-goods
+        uri: lb://BS-SERVICE-GOODS
+        predicates:
+        - Path=/goods/**
+      - id: bs-service-goods
+        uri: lb://BS-SERVICE-MANAGER
+        predicates:
+        - Path=/manager/**
+      - id: bs-service-user
+        uri: lb://BS-SERVICE-USER
+        predicates:
+        - Path=/user/**
+      - id: bs-service-search
+        uri: lb://BS-SERVICE-SEARCH
+        predicates:
+        - Path=/search/**
+      - id: bs-service-order
+        uri: lb://BS-SERVICE-ORDER
+        predicates:
+        - Path=/order/**
+      filters:
+      - name: RequestRateLimiter
+        args:
+          redis-rate-limiter.replenishRate: 0
+          redis-rate-limiter.burstCapacity: 0
+          key-resolver: "#{@ipKeyResolver}"
