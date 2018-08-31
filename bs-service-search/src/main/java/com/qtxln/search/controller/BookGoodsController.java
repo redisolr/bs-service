@@ -3,9 +3,6 @@ package com.qtxln.search.controller;
 import com.qtxln.search.service.BookGoodsService;
 import com.qtxln.transport.InvokerResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,10 +34,10 @@ public class BookGoodsController {
 
     @GetMapping("search")
     public InvokerResult search(@RequestParam(value = "keyWord", defaultValue = "") String keyWord,
-                                  @RequestParam(value = "pageNum", defaultValue = "0") int pageNum,
-                                  @RequestParam(value = "pageSize", defaultValue = "20") int pageSize,
-                                  @RequestParam(value = "sort", defaultValue = "gmtCreate") String sort,
-                                  @RequestParam(value = "direction", defaultValue = "1") String direction) {
+                                @RequestParam(value = "pageNum", defaultValue = "0") int pageNum,
+                                @RequestParam(value = "pageSize", defaultValue = "20") int pageSize,
+                                @RequestParam(value = "sort", defaultValue = "gmtCreate") String sort,
+                                @RequestParam(value = "direction", defaultValue = "1") String direction) {
         return bookGoodsService.search(keyWord, pageNum, pageSize, sort, direction);
     }
 }

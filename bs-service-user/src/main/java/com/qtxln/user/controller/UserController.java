@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @GetMapping("checkLogin")
-    public InvokerResult checkLogin(@RequestParam(value = "token", defaultValue = "") String token) throws BsUserException {
+    public InvokerResult checkLogin(@RequestParam(value = "token", defaultValue = "") String token) throws BsUserException, IOException {
         return userService.checkLogin(token);
     }
 

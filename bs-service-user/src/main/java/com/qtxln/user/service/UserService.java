@@ -1,5 +1,6 @@
 package com.qtxln.user.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.qtxln.exception.BsUserException;
 import com.qtxln.model.user.User;
 import com.qtxln.model.user.dto.LoginRegisterDTO;
@@ -7,6 +8,7 @@ import com.qtxln.model.user.dto.UserDTO;
 import com.qtxln.transport.InvokerResult;
 import com.qtxln.user.mapper.UserMapper;
 import com.qtxln.util.DateUtil;
+import com.qtxln.util.JsonUtil;
 import com.qtxln.util.JwtUtil;
 import com.qtxln.util.TokenUtil;
 import io.jsonwebtoken.Claims;
@@ -16,6 +18,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 
 /**
  * @author QT
@@ -31,9 +35,9 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public InvokerResult checkLogin(String token) throws BsUserException {
-        Long userId = TokenUtil.getUserId(token);
-        User user = userMapper.findById(userId);
+    public InvokerResult checkLogin(String token) throws BsUserException, IOException {
+        User user1 = TokenUtil.getUserId(token);
+        User user = userMapper.findById(user1.getId());
         UserDTO userDTO = new UserDTO();
         BeanUtils.copyProperties(user, userDTO);
         // 重新生成token,即重新设置过期时间
@@ -54,18 +58,19 @@ public class UserService {
         return InvokerResult.getInstance();
     }
 
-    public InvokerResult login(LoginRegisterDTO loginRegisterDTO) throws BsUserException {
-        User byUsername = userMapper.findByUsername(loginRegisterDTO.getUsername());
-        if (byUsername == null) {
+    public InvokerResult login(LoginRegisterDTO loginRegisterDTO) throws BsUserException, JsonProcessingException {
+        User user = userMapper.findByUsername(loginRegisterDTO.getUsername());
+        if (user == null) {
             throw new BsUserException(BsUserException.ErrorUserEnum.USERNAME_NON_EXISTENT);
         }
-        if (!bpe.matches(loginRegisterDTO.getPassword(), byUsername.getPassword())) {
+        if (!bpe.matches(loginRegisterDTO.getPassword(), user.getPassword())) {
             throw new BsUserException(BsUserException.ErrorUserEnum.USERNAME_OR_PASSWORD_ERR);
         }
         //生成jwt
-        String jwt = JwtUtil.buildJWT(byUsername.getId().toString());
+        user.setPassword(null);
+        String jwt = JwtUtil.buildJWT(JsonUtil.objToJson(user));
         UserDTO userDTO = new UserDTO();
-        BeanUtils.copyProperties(byUsername, userDTO);
+        BeanUtils.copyProperties(user, userDTO);
         userDTO.setToken(jwt);
         return InvokerResult.getInstance(userDTO);
     }

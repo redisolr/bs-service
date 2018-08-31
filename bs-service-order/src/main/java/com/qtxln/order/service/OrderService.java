@@ -51,6 +51,7 @@ public class OrderService {
         // 添加订单基本信息
         Order order = new Order();
         order.setUserId(orderDTO.getUserId());
+        order.setUsername(orderDTO.getUsername());
         order.setOrderNum(OrderUtil.generateOrderNum(orderDTO.getUserId()));
         order.setPayment(orderDTO.getPayment());
         orderMapper.insert(order);
@@ -88,8 +89,8 @@ public class OrderService {
         return InvokerResult.getInstance(PageDataUtil.toPageData(new PageInfo<>(orderList)));
     }
 
-    public InvokerResult delete(Long userId, Long id) {
-        orderMapper.updateOrderStatus(OrderConstants.ORDER_DELETE, id, userId);
+    public InvokerResult delete(Long id) {
+        orderMapper.updateOrderStatus(OrderConstants.ORDER_DELETE, id);
         return InvokerResult.getInstance();
     }
 
@@ -102,8 +103,19 @@ public class OrderService {
         return InvokerResult.getInstance(orderInfoDTO);
     }
 
-    public InvokerResult cancel(Long userId, Long id) {
-        orderMapper.updateOrderStatus(OrderConstants.ORDER_CANCEL, id, userId);
+    public InvokerResult cancel(Long id) {
+        orderMapper.updateOrderStatus(OrderConstants.ORDER_CANCEL, id);
         return InvokerResult.getInstance();
+    }
+
+    public InvokerResult deliver(Long id) {
+        orderMapper.updateOrderStatus(OrderConstants.DELIVER_GOODS, id);
+        return InvokerResult.getInstance();
+    }
+
+    public InvokerResult findAll(int pageNum, int pageSize){
+        PageHelper.startPage(pageNum, pageSize);
+        List<Order> list = orderMapper.findAll();
+        return InvokerResult.getInstance(PageDataUtil.toPageData(new PageInfo<>(list)));
     }
 }

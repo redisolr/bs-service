@@ -52,6 +52,10 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.qtxln</groupId>
+            <artifactId>bs-common-model</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

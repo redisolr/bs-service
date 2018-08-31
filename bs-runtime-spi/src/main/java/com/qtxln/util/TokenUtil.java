@@ -1,9 +1,12 @@
 package com.qtxln.util;
 
 import com.qtxln.exception.BsUserException;
+import com.qtxln.model.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import org.apache.commons.lang3.StringUtils;
+
+import java.io.IOException;
 
 /**
  * @author QT
@@ -13,7 +16,7 @@ public class TokenUtil {
     private TokenUtil() {
     }
 
-    public static Long getUserId(String token) throws BsUserException {
+    public static User getUserId(String token) throws BsUserException, IOException {
         if (StringUtils.isEmpty(token)) {
             throw new BsUserException(BsUserException.ErrorUserEnum.TOKEN_EXPIRED);
         } else {
@@ -23,6 +26,6 @@ public class TokenUtil {
             }
         }
         Jws<Claims> jws = JwtUtil.parseJWT(token);
-        return Long.parseLong(jws.getBody().getSubject());
+        return JsonUtil.jsonToObj(jws.getBody().getSubject(), User.class);
     }
 }

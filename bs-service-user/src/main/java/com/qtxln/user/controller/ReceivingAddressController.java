@@ -3,6 +3,7 @@ package com.qtxln.user.controller;
 import com.qtxln.constants.AuthConstants;
 import com.qtxln.exception.BsUserException;
 import com.qtxln.model.user.ReceivingAddress;
+import com.qtxln.model.user.User;
 import com.qtxln.transport.InvokerResult;
 import com.qtxln.user.service.ReceivingAddressService;
 import com.qtxln.util.TokenUtil;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 /**
  * @author QT
@@ -28,16 +30,16 @@ public class ReceivingAddressController {
     }
 
     @PostMapping("insert")
-    public InvokerResult insert(@RequestBody ReceivingAddress receivingAddress) throws BsUserException {
-        Long userId = TokenUtil.getUserId(request.getHeader(AuthConstants.TOKEN));
-        receivingAddress.setUserId(userId);
+    public InvokerResult insert(@RequestBody ReceivingAddress receivingAddress) throws BsUserException, IOException {
+        User user = TokenUtil.getUserId(request.getHeader(AuthConstants.TOKEN));
+        receivingAddress.setUserId(user.getId());
         return receivingAddressService.insert(receivingAddress);
     }
 
     @GetMapping("findAll")
-    public InvokerResult findAll() throws BsUserException {
-        Long userId = TokenUtil.getUserId(request.getHeader(AuthConstants.TOKEN));
-        return receivingAddressService.findAll(userId);
+    public InvokerResult findAll() throws BsUserException, IOException {
+        User user = TokenUtil.getUserId(request.getHeader(AuthConstants.TOKEN));
+        return receivingAddressService.findAll(user.getId());
     }
 
     @GetMapping("findById/{id}")
@@ -46,9 +48,9 @@ public class ReceivingAddressController {
     }
 
     @PutMapping("update")
-    public InvokerResult update(@RequestBody ReceivingAddress receivingAddress) throws BsUserException {
-        Long userId = TokenUtil.getUserId(request.getHeader(AuthConstants.TOKEN));
-        receivingAddress.setUserId(userId);
+    public InvokerResult update(@RequestBody ReceivingAddress receivingAddress) throws BsUserException, IOException {
+        User user = TokenUtil.getUserId(request.getHeader(AuthConstants.TOKEN));
+        receivingAddress.setUserId(user.getId());
         return receivingAddressService.update(receivingAddress);
     }
 

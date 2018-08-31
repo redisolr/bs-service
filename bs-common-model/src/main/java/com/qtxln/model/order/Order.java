@@ -11,6 +11,8 @@ public class Order {
 
     private Long userId;
 
+    private String username;
+
     private String orderNum;
 
     private BigDecimal payment;

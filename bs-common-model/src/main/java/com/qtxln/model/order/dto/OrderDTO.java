@@ -14,6 +14,8 @@ import java.util.List;
 public class OrderDTO {
     private Long userId;
 
+    private String username;
+
     private String receiverName;
 
     private String receiverPhone;

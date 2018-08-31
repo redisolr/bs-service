@@ -7,4 +7,6 @@ package com.qtxln.order.constants;
 public class OrderConstants {
     public static final Integer ORDER_CANCEL = 5;
     public static final Integer ORDER_DELETE = 7;
+    public static final Integer DELIVER_GOODS = 3;
+
 }
