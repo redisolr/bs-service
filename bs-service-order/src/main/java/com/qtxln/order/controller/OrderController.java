@@ -69,4 +69,9 @@ public class OrderController {
                                  @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
         return orderService.findAll(pageNum, pageSize);
     }
+
+    @GetMapping("countByStatus")
+    public InvokerResult countByStatus() {
+        return orderService.countByStatus();
+    }
 }

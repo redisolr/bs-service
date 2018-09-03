@@ -118,4 +118,8 @@ public class OrderService {
         List<Order> list = orderMapper.findAll();
         return InvokerResult.getInstance(PageDataUtil.toPageData(new PageInfo<>(list)));
     }
+
+    public InvokerResult countByStatus(){
+        return InvokerResult.getInstance(orderMapper.countByStatus());
+    }
 }

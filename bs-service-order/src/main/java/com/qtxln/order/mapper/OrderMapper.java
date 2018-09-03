@@ -1,6 +1,7 @@
 package com.qtxln.order.mapper;
 
 import com.qtxln.model.order.Order;
+import com.qtxln.model.order.dto.OrderCountDTO;
 import com.qtxln.model.order.dto.OrderInfoDTO;
 import com.qtxln.model.order.dto.OrderListDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -10,6 +11,7 @@ import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author QT
@@ -61,4 +63,12 @@ public interface OrderMapper {
      */
     @Select("SELECT id,username,order_num,payment,payment_type,status,payment_time,close_time,finish_time,gmt_create FROM o_order ORDER BY gmt_create DESC")
     List<Order> findAll();
+
+    /**
+     * 根据订单状态统计订单数量
+     *
+     * @return Map
+     */
+    @Select("SELECT count(*) value, status name FROM o_order GROUP BY status")
+    List<OrderCountDTO> countByStatus();
 }
