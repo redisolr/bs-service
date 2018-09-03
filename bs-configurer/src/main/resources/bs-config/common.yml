@@ -4,14 +4,14 @@ spring:
     time-zone: GMT+8
     default-property-inclusion: non_null
   rabbitmq:
-    host: 47.104.176.62
-    port: 5672
-    username: root
-    password: nana916417
+    host: #地址
+    port: #端口
+    username: #用户名
+    password: #密码
     virtual-host: /
   redis:
-    host: 47.104.176.62
-    port: 6379
+    host: #地址
+    port: #密码
 eureka:
   instance:
     preferIpAddress: true
