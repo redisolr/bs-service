@@ -61,9 +61,9 @@ public class GoodsService {
         goodsDesc.setGoodsDesc(goodsDTO.getGoodsDesc());
         goodsDescMapper.insert(goodsDesc);
         // 发布上架商品,通过RabbitMq通知更新ES
-        /*if (goods.getGoodsStatus() == 1){
+        if (goods.getGoodsStatus() == 1){
             goodsMessageProvider.insertGoodsMessage(goods.getId());
-        }*/
+        }
         return InvokerResult.getInstance();
     }
 
@@ -101,9 +101,9 @@ public class GoodsService {
         goodsDesc.setGoodsDesc(goodsDTO.getGoodsDesc());
         goodsDescMapper.updateByGoodsId(goodsDesc);
         // 更新上架商品,通过RabbitMq通知更新ES
-        /*if (goods.getGoodsStatus() == 1){
+        if (goods.getGoodsStatus() == 1){
             goodsMessageProvider.updateGoodsMessage(goods.getId());
-        }*/
+        }
         return InvokerResult.getInstance();
     }
 

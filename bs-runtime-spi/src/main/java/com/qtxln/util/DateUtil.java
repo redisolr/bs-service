@@ -10,6 +10,7 @@ import java.util.Date;
  * 2018-08-14 17:39
  */
 public class DateUtil {
+    public static final long ONE_DAY_TIME = 1000 * 60 * 60 * 24;
 
     public static Date getDate() {
         return Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());

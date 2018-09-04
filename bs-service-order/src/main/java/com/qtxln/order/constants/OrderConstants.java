@@ -8,5 +8,9 @@ public class OrderConstants {
     public static final Integer ORDER_CANCEL = 5;
     public static final Integer ORDER_DELETE = 7;
     public static final Integer DELIVER_GOODS = 3;
+    public static final Integer UNPAID = 0;
+    public static final Integer FINISH = 4;
+
+
 
 }

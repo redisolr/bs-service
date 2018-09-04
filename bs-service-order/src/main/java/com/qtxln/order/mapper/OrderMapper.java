@@ -41,11 +41,9 @@ public interface OrderMapper {
     /**
      * 根据订单id更新订单状态
      *
-     * @param id     Long
-     * @param status Integer
+     * @param order Order
      */
-    @Update("UPDATE o_order SET status=#{status} WHERE id=#{id}")
-    void updateOrderStatus(@Param("status") Integer status, @Param("id") Long id);
+    void updateOrderStatus(Order order);
 
     /**
      * 根据订单id查询订单
