@@ -4,7 +4,10 @@ import com.qtxln.model.user.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @author QT
@@ -35,4 +38,19 @@ public interface UserMapper {
      */
     @Select("SELECT id,username,user_head,phone,email FROM u_user WHERE id = #{id}")
     User findById(Long id);
+
+    /**
+     * 查询所有用户
+     * @return List
+     */
+    @Select("SELECT id,username,phone,sex,email,enable,gmt_create FROM u_user ")
+    List<User> findAll();
+
+    /**
+     * 更新用户启用/禁用状态
+     *
+     * @param user User
+     */
+    @Update("UPDATE u_user SET enable=#{enable} WHERE id=#{id}")
+    void updateUserEnableState(User user);
 }

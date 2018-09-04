@@ -1,16 +1,15 @@
 package com.qtxln.user.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.qtxln.exception.BsUserException;
 import com.qtxln.model.user.User;
 import com.qtxln.model.user.dto.LoginRegisterDTO;
 import com.qtxln.model.user.dto.UserDTO;
 import com.qtxln.transport.InvokerResult;
 import com.qtxln.user.mapper.UserMapper;
-import com.qtxln.util.DateUtil;
-import com.qtxln.util.JsonUtil;
-import com.qtxln.util.JwtUtil;
-import com.qtxln.util.TokenUtil;
+import com.qtxln.util.*;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import org.apache.commons.lang.StringUtils;
@@ -20,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author QT
@@ -73,5 +73,16 @@ public class UserService {
         BeanUtils.copyProperties(user, userDTO);
         userDTO.setToken(jwt);
         return InvokerResult.getInstance(userDTO);
+    }
+
+    public InvokerResult findAll(Integer pageNum, Integer pageSize){
+        PageHelper.startPage(pageNum, pageSize);
+        List<User> userList = userMapper.findAll();
+        return InvokerResult.getInstance(PageDataUtil.toPageData(new PageInfo<>(userList)));
+    }
+
+    public InvokerResult updateUserEnableState(User user){
+        userMapper.updateUserEnableState(user);
+        return InvokerResult.getInstance();
     }
 }

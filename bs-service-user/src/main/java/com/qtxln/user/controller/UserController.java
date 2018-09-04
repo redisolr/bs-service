@@ -2,6 +2,7 @@ package com.qtxln.user.controller;
 
 import com.qtxln.exception.BsUserException;
 import com.qtxln.model.common.GeetInit;
+import com.qtxln.model.user.User;
 import com.qtxln.model.user.dto.LoginRegisterDTO;
 import com.qtxln.transport.InvokerResult;
 import com.qtxln.user.service.UserService;
@@ -69,6 +70,16 @@ public class UserController {
     public InvokerResult login(@RequestBody LoginRegisterDTO loginRegisterDTO) throws IOException, BsUserException {
         checkVerification(loginRegisterDTO);
         return userService.login(loginRegisterDTO);
+    }
+
+    @GetMapping("list")
+    public InvokerResult findAll(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
+        return userService.findAll(pageNum, pageSize);
+    }
+
+    @PutMapping("update/enable")
+    public InvokerResult updateUserEnableState(@RequestBody User user) {
+        return userService.updateUserEnableState(user);
     }
 
     private void checkVerification(LoginRegisterDTO loginRegisterDTO) throws IOException, BsUserException {
