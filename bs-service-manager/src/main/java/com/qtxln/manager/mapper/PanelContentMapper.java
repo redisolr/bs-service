@@ -1,6 +1,7 @@
 package com.qtxln.manager.mapper;
 
 import com.qtxln.model.manager.PanelContent;
+import com.qtxln.model.manager.dto.PanelContentDTO;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -20,16 +21,16 @@ public interface PanelContentMapper {
      * @param panelId 板块id
      * @return List
      */
-    @Select("SELECT id,sort,picture_url,jump_url,gmt_create FROM m_panel_content WHERE panel_id = #{panelId}")
-    List<PanelContent> selectByPanelId(Long panelId);
+    @Select("SELECT id,sort,picture_url,jump_url,goods_id,gmt_create FROM m_panel_content WHERE panel_id = #{panelId}")
+    List<PanelContentDTO> selectByPanelId(Long panelId);
 
     /**
      * 添加板块内容
      *
      * @param panelContent PanelContent
      */
-    @Insert("INSERT INTO m_panel_content(panel_id,sort,picture_url,jump_url,gmt_create) VALUES" +
-            " (#{panelId},#{sort},#{pictureUrl},#{jumpUrl},NOW())")
+    @Insert("INSERT INTO m_panel_content(panel_id,sort,picture_url,jump_url,goods_id,gmt_create) VALUES" +
+            " (#{panelId},#{sort},#{pictureUrl},#{jumpUrl},#{goodsId},NOW())")
     void insert(PanelContent panelContent);
 
     /**
@@ -38,7 +39,7 @@ public interface PanelContentMapper {
      * @param id 内容id
      * @return PanelContent
      */
-    @Select("SELECT id,sort,picture_url,jump_url FROM m_panel_content WHERE id = #{id}")
+    @Select("SELECT id,sort,picture_url,jump_url,goods_id FROM m_panel_content WHERE id = #{id}")
     PanelContent getPanelContent(Long id);
 
     /**
@@ -47,7 +48,7 @@ public interface PanelContentMapper {
      * @param panelContent PanelContent
      */
     @Update("UPDATE m_panel_content SET sort = #{sort},picture_url = #{pictureUrl}," +
-            "jump_url = #{jumpUrl},gmt_update = now() WHERE id = #{id}")
+            "jump_url = #{jumpUrl},goods_id = #{goodsId},gmt_update = now() WHERE id = #{id}")
     void update(PanelContent panelContent);
 
     /**

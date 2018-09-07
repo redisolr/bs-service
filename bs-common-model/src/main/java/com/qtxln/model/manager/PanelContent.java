@@ -16,6 +16,8 @@ public class PanelContent {
 
     private String jumpUrl;
 
+    private Long goodsId;
+
     private Date gmtCreate;
 
     private Date gmtUpdate;

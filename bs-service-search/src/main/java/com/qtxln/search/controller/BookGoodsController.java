@@ -1,5 +1,7 @@
 package com.qtxln.search.controller;
 
+import com.qtxln.exception.BsSearchException;
+import com.qtxln.model.goods.Goods;
 import com.qtxln.search.service.BookGoodsService;
 import com.qtxln.transport.InvokerResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +41,10 @@ public class BookGoodsController {
                                 @RequestParam(value = "sort", defaultValue = "gmtCreate") String sort,
                                 @RequestParam(value = "direction", defaultValue = "1") String direction) {
         return bookGoodsService.search(keyWord, pageNum, pageSize, sort, direction);
+    }
+
+    @GetMapping("findById")
+    public Goods saveAll(@RequestParam("id") long id) throws BsSearchException {
+        return bookGoodsService.findById(id);
     }
 }

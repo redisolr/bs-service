@@ -1,6 +1,5 @@
 package com.qtxln.model.manager.dto;
 
-import com.qtxln.model.manager.PanelContent;
 import lombok.Data;
 
 import java.util.List;
@@ -28,5 +27,5 @@ public class PanelDTO {
 
     private Integer maxPicture;
 
-    private List<PanelContent> panelContents;
+    private List<PanelContentDTO> panelContents;
 }

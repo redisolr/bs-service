@@ -1,5 +1,7 @@
 package com.qtxln.search.service;
 
+import com.qtxln.exception.BsSearchException;
+import com.qtxln.model.goods.Goods;
 import com.qtxln.search.mapper.BookGoodsMapper;
 import com.qtxln.search.model.BookGoods;
 import com.qtxln.search.repository.BookGoodsRepository;
@@ -8,6 +10,7 @@ import com.qtxln.transport.PageData;
 import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +24,7 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import static org.elasticsearch.index.query.QueryBuilders.functionScoreQuery;
 import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
@@ -59,6 +63,17 @@ public class BookGoodsService {
         return InvokerResult.getInstance();
     }
 
+    public Goods findById(Long id) throws BsSearchException {
+        Optional<BookGoods> optionalBookGoods = bookGoodsRepository.findById(id);
+        if (!optionalBookGoods.isPresent()) {
+            throw new BsSearchException(BsSearchException.ErrorSearchEnum.RESULT_NULL);
+        }
+        BookGoods bookGoods = optionalBookGoods.get();
+        Goods goods = new Goods();
+        BeanUtils.copyProperties(bookGoods, goods);
+        return goods;
+    }
+
     public InvokerResult deleteAll() {
         bookGoodsRepository.deleteAll();
         return InvokerResult.getInstance();
@@ -81,7 +96,6 @@ public class BookGoodsService {
     }
 
     public InvokerResult search(String keyWord, int pageNum, int pageSize, String sort, String direction) {
-        System.out.println(keyWord);
         Sort sort1;
         if (Objects.equals(direction, SORT_DESC)) {
             sort1 = Sort.by(Sort.Direction.DESC, sort);

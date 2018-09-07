@@ -40,8 +40,8 @@ public class PanelContentController {
         return panelContentService.update(panelContent);
     }
 
-    @DeleteMapping("delete/{id}")
-    public InvokerResult delete(@PathVariable("id") Long id) {
+    @DeleteMapping("delete")
+    public InvokerResult delete(@RequestParam("id") Long id) {
         return panelContentService.delete(id);
     }
 }
