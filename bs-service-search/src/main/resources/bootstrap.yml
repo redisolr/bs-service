@@ -7,11 +7,6 @@ mybatis:
   type-aliases-package: com.qtxln.search.mapper
   configuration:
     map-underscore-to-camel-case: true
-management:
-  health:
-    mail:
-      enabled: false
-
 spring:
   application:
     name: bs-service-search

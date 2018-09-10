@@ -17,6 +17,11 @@ eureka:
     preferIpAddress: true
     lease-renewal-interval-in-seconds: 5
     lease-expiration-duration-in-seconds: 10
+    health-check-url: http://localhost:${server.port}${server.servlet.context-path}/actuator/health
+      status-page-url: http://localhost:${server.port}${server.servlet.context-path}/actuator/info
+      home-page-url: http://localhost:${server.port}${server.servlet.context-path}
+      metadata-map:
+        management.context-path: ${server.servlet.context-path}/actuator
   client:
     healthcheck:
       enabled: true

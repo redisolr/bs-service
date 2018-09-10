@@ -1,0 +1,11 @@
+server:
+  port: 7777
+spring:
+  application:
+    name: bs-monitor
+  cloud:
+    config:
+      name: ${spring.application.name}, common
+      uri: http://localhost:8888
+
+
