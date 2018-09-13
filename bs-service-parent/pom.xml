@@ -5,40 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
-        <relativePath/>
+        <artifactId>bs-parent</artifactId>
+        <groupId>com.qtxln</groupId>
+        <version>1.0.0</version>
+        <relativePath>../bs-parent/pom.xml</relativePath>
     </parent>
 
-    <groupId>com.qtxln</groupId>
     <artifactId>bs-service-parent</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <spring-cloud.version>Finchley.SR1</spring-cloud.version>
-        <common.model.version>[1.0,)</common.model.version>
-        <runtime.spi.version>[1.0,)</runtime.spi.version>
-        <mysql-connector-java.version>8.0.11</mysql-connector-java.version>
-        <druid.version>1.1.10</druid.version>
-        <lombok.version>1.18.2</lombok.version>
-    </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -65,7 +41,6 @@
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
-            <version>2.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -86,32 +61,22 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>1.3.2</version>
         </dependency>
-        <!--<dependency>
-            <groupId>com.qtxln</groupId>
-            <artifactId>bs-common-model</artifactId>
-            <version>${common.model.version}</version>
-        </dependency>-->
         <dependency>
             <groupId>com.qtxln</groupId>
             <artifactId>bs-runtime-spi</artifactId>
-            <version>${runtime.spi.version}</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql-connector-java.version}</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>${druid.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
