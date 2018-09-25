@@ -66,8 +66,16 @@ public class RoleService {
 
     @Transactional(rollbackFor = Exception.class)
     public InvokerResult update(RoleDTO roleDTO) {
-        delete(roleDTO.getId());
-        insert(roleDTO);
+        Long id = roleDTO.getId();
+        Role role = new Role();
+        role.setId(roleDTO.getId());
+        role.setName(roleDTO.getName());
+        roleMapper.update(role);
+        rolePermissionMapper.deleteByRoleId(id);
+        permissionAsyncTask.deletePermissionTask(id);
+        roleDTO.getRolePermissionList().forEach(rolePermission -> rolePermission.setRoleId(id));
+        rolePermissionMapper.insertBatch(roleDTO.getRolePermissionList());
+        permissionAsyncTask.insertPermissionTask(id);
         return InvokerResult.getInstance();
     }
 
@@ -79,4 +87,5 @@ public class RoleService {
         permissionAsyncTask.deletePermissionTask(id);
         return InvokerResult.getInstance();
     }
+
 }

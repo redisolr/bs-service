@@ -18,10 +18,8 @@ import java.util.Map;
  * @author QT
  * 2018-08-10 18:15
  */
-//@Component
+@Component
 public class AccessFilter implements GlobalFilter, Ordered {
-
-
     private final UserClient userClient;
 
     private static final String TOKEN_NAME = "Authorization";
@@ -42,7 +40,7 @@ public class AccessFilter implements GlobalFilter, Ordered {
             }
             String path = exchange.getRequest().getPath().value();
             if (checkPermissions(token, path)) {
-                exchange.getResponse().setStatusCode(HttpStatus.PROXY_AUTHENTICATION_REQUIRED);
+                exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
                 return exchange.getResponse().setComplete();
             }
         }

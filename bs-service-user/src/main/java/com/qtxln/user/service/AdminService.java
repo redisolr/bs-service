@@ -32,11 +32,11 @@ import java.util.Objects;
 @Service
 public class AdminService {
     private final AdminMapper adminMapper;
-    private final RedisTemplate redisTemplate;
+    private final RedisTemplate<String,String> redisTemplate;
     private final BCryptPasswordEncoder bpe = new BCryptPasswordEncoder();
 
     @Autowired
-    public AdminService(AdminMapper adminMapper, RedisTemplate redisTemplate) {
+    public AdminService(AdminMapper adminMapper, RedisTemplate<String, String> redisTemplate) {
         this.adminMapper = adminMapper;
         this.redisTemplate = redisTemplate;
     }
@@ -88,34 +88,34 @@ public class AdminService {
             return false;
         }
         Long roleId = adminMapper.findRoleByUserId(Long.parseLong(id));
-        String permissions = (String) redisTemplate.opsForValue().get(roleId);
+        String permissions = redisTemplate.opsForValue().get(roleId.toString());
         return StringUtils.isEmpty(permissions) || !permissions.contains(path);
     }
 
-    public InvokerResult selectAll(Integer pageNum, Integer pageSize){
+    public InvokerResult selectAll(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<AdminDTO> adminDTOS = adminMapper.selectAll();
         return InvokerResult.getInstance(PageDataUtil.toPageData(new PageInfo<>(adminDTOS)));
     }
 
-    public InvokerResult updateEnableState(Admin admin){
+    public InvokerResult updateEnableState(Admin admin) {
         adminMapper.updateEnableState(admin);
         return InvokerResult.getInstance();
     }
 
-    public InvokerResult get(Long id){
+    public InvokerResult get(Long id) {
         return InvokerResult.getInstance(adminMapper.findById(id));
     }
 
-    public InvokerResult update(Admin admin){
-        if (StringUtils.isNotEmpty(admin.getPassword())){
+    public InvokerResult update(Admin admin) {
+        if (StringUtils.isNotEmpty(admin.getPassword())) {
             admin.setPassword(bpe.encode(admin.getPassword()));
         }
         adminMapper.update(admin);
         return InvokerResult.getInstance();
     }
 
-    public InvokerResult delete(Long id){
+    public InvokerResult delete(Long id) {
         adminMapper.deleteById(id);
         return InvokerResult.getInstance();
     }

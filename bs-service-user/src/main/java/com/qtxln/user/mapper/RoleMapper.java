@@ -4,6 +4,7 @@ import com.qtxln.model.user.Role;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,6 +22,13 @@ public interface RoleMapper {
      * @param role 角色实体
      */
     void insert(Role role);
+
+    /**
+     * 编辑角色
+     * @param role Role
+     */
+    @Update("UPDATE u_role SET name=#{name}, gmt_update=NOW() WHERE id=#{id}")
+    void update(Role role);
 
     /**
      * 根据id删除角色
