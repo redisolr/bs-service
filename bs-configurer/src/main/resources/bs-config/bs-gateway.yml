@@ -14,6 +14,12 @@ spring:
         uri: lb://BS-SERVICE-USER
         predicates:
         - Path=/user/**
+        filters:
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 1
+            redis-rate-limiter.burstCapacity: 3
+            key-resolver: "#{@ipKeyResolver}"
       - id: bs-service-search
         uri: lb://BS-SERVICE-SEARCH
         predicates:
@@ -22,9 +28,3 @@ spring:
         uri: lb://BS-SERVICE-ORDER
         predicates:
         - Path=/order/**
-      filters:
-      - name: RequestRateLimiter
-        args:
-          redis-rate-limiter.replenishRate: 0
-          redis-rate-limiter.burstCapacity: 0
-          key-resolver: "#{@ipKeyResolver}"
