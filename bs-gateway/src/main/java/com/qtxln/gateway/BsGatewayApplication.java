@@ -28,24 +28,4 @@ public class BsGatewayApplication {
     public KeyResolver ipKeyResolver() {
         return exchange -> Mono.just(Objects.requireNonNull(exchange.getRequest().getRemoteAddress()).getHostName());
     }
-
-    /**
-     * 用户限流
-     *
-     * @return KeyResolver
-     */
-    @Bean
-    KeyResolver userKeyResolver() {
-        return exchange -> Mono.just(Objects.requireNonNull(exchange.getRequest().getQueryParams().getFirst("userId")));
-    }
-
-    /**
-     * 接口限流
-     *
-     * @return KeyResolver
-     */
-    @Bean
-    KeyResolver apiKeyResolver() {
-        return exchange -> Mono.just(exchange.getRequest().getPath().value());
-    }
 }
