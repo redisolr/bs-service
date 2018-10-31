@@ -24,6 +24,9 @@ public class AccessFilter implements GlobalFilter, Ordered {
 
     private static final String TOKEN_NAME = "Authorization";
     private static final String LOGIN_NAME = "login";
+    private static final String UPLOAD_NAME = "upload";
+    private static final String APPLICATION_NAME = "application-name";
+
 
     @Autowired
     public AccessFilter(UserClient userClient) {
@@ -32,13 +35,17 @@ public class AccessFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        if (!exchange.getRequest().getPath().value().endsWith(LOGIN_NAME)) {
+        String applicationName = exchange.getRequest().getHeaders().getFirst(APPLICATION_NAME);
+        if ("QTF".equals(applicationName)){
+            return chain.filter(exchange);
+        }
+        String path = exchange.getRequest().getPath().value();
+        if (!path.endsWith(LOGIN_NAME) && !path.endsWith(UPLOAD_NAME)) {
             String token = exchange.getRequest().getHeaders().getFirst(TOKEN_NAME);
             if (StringUtils.isEmpty(token) || checkTokenIsExpire(token)) {
                 exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
                 return exchange.getResponse().setComplete();
             }
-            String path = exchange.getRequest().getPath().value();
             if (checkPermissions(token, path)) {
                 exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
                 return exchange.getResponse().setComplete();
