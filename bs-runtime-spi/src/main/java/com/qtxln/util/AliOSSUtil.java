@@ -12,8 +12,8 @@ import java.io.InputStream;
  */
 public class AliOSSUtil {
     private final static String END_POINT = "http://oss-cn-beijing.aliyuncs.com";
-    private final static String ACCESS_KEY_ID = "LTAIi11bzO1F3IWm";
-    private final static String ACCESS_KEY_SECRET = "g1JRyVRGz5AlKZ6YwyPYFEmGM3aRlj";
+    private final static String ACCESS_KEY_ID = "";
+    private final static String ACCESS_KEY_SECRET = "";
     private final static String BUCKET_NAME = "bs-image";
     private final static String FILE_HOST = "https://bs-image.oss-cn-beijing.aliyuncs.com/";
 
